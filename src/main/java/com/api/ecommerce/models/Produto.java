@@ -90,18 +90,4 @@ public class Produto {
         this.categoria = categoria;
     }
 
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Produto produto = (Produto) o;
-        return Objects.equals(id, produto.id) && Objects.equals(nome, produto.nome) && Objects.equals(descricao, produto.descricao) && Objects.equals(preco, produto.preco) && Objects.equals(quantidadeEstoque, produto.quantidadeEstoque) && Objects.equals(categoria, produto.categoria);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, nome, descricao, preco, quantidadeEstoque, categoria);
-    }
 }

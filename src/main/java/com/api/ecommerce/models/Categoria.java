@@ -53,18 +53,4 @@ public class Categoria {
         this.descricao = descricao;
     }
 
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Categoria categoria = (Categoria) o;
-        return Objects.equals(id, categoria.id) && Objects.equals(nome, categoria.nome) && Objects.equals(descricao, categoria.descricao);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, nome, descricao);
-    }
 }
