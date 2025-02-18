@@ -1,9 +1,12 @@
 package com.api.ecommerce.exceptions;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDateTime;
 
 public class StandardError {
 
+    @JsonFormat(pattern = "HH:mm - dd/MM/yyyy")
     private LocalDateTime timestamp;
     private Integer status;
     private String message;
