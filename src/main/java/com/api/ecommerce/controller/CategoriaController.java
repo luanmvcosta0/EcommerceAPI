@@ -31,7 +31,13 @@ public class CategoriaController {
     @PostMapping
     public ResponseEntity<CategoriaDto> save(@RequestBody CategoriaDto categoriaDto) {
         CategoriaDto catSalva = categoriaService.save(categoriaDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(catSalva);
+        return ResponseEntity.ok().body(catSalva);
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<CategoriaDto> update(@PathVariable Long id, @RequestBody CategoriaDto categoriaDto) {
+        CategoriaDto catAtualiza = categoriaService.update(id, categoriaDto);
+        return ResponseEntity.ok().body(catAtualiza);
     }
 
 }

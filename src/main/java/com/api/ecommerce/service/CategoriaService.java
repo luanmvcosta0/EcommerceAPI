@@ -39,4 +39,16 @@ public class CategoriaService {
         return new CategoriaDto(cat);
     }
 
+    public CategoriaDto update(Long id, CategoriaDto categoriaDto) {
+        Categoria cat = categoriaRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Categoria não encontrada."));
+
+                cat.setNome(categoriaDto.getNome());
+                cat.setDescricao(categoriaDto.getDescricao());
+
+                cat = categoriaRepository.save(cat);
+                return new CategoriaDto(cat);
+    }
+
+
 }
