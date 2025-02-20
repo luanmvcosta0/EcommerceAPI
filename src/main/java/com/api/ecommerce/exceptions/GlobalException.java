@@ -1,7 +1,6 @@
 package com.api.ecommerce.exceptions;
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -22,8 +21,8 @@ public class GlobalException {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<StandardError> illegalArgumentException(IllegalArgumentException ex, HttpServletRequest request) {
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<StandardError> badRequestException(BadRequestException ex, HttpServletRequest request) {
         StandardError error = new StandardError(
                 LocalDateTime.now(),
                 HttpStatus.BAD_REQUEST.value(),

@@ -28,7 +28,7 @@ public class CategoriaService {
 
     public CategoriaDto save(CategoriaDto categoriaDto) {
         if (categoriaRepository.existsByNome(categoriaDto.getNome())) {
-            throw new IllegalArgumentException("Categoria já existente.");
+            throw new BadRequestException("Categoria já existente.");
         }
 
         Categoria cat = new Categoria();

@@ -10,7 +10,7 @@ public class CategoriaDto {
 
 
 
-    public CategoriaDto() {;
+    public CategoriaDto() {
     }
 
     public CategoriaDto(Long id, String nome, String descricao) {
