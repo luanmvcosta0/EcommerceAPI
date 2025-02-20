@@ -50,5 +50,12 @@ public class CategoriaService {
                 return new CategoriaDto(cat);
     }
 
+    public void delete(Long id) {
+        Categoria cat = categoriaRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Categoria não encontrada."));
+
+        categoriaRepository.delete(cat);
+    }
+
 
 }
