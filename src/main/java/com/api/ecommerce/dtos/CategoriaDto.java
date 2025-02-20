@@ -50,4 +50,5 @@ public class CategoriaDto {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+
 }

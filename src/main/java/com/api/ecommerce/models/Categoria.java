@@ -1,7 +1,10 @@
 package com.api.ecommerce.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -15,6 +18,10 @@ public class Categoria {
     private String nome;
 
     private String descricao;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "categoria")
+    private List<Produto> produtos = new ArrayList<>();
 
 
 
@@ -51,6 +58,14 @@ public class Categoria {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
     }
 
 }

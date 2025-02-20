@@ -1,11 +1,11 @@
 package com.api.ecommerce.service;
 
 import com.api.ecommerce.dtos.CategoriaDto;
-import com.api.ecommerce.exceptions.BadRequestException;
 import com.api.ecommerce.exceptions.ObjectNotFoundException;
 import com.api.ecommerce.models.Categoria;
 import com.api.ecommerce.repositories.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,7 +28,7 @@ public class CategoriaService {
 
     public CategoriaDto save(CategoriaDto categoriaDto) {
         if (categoriaRepository.existsByNome(categoriaDto.getNome())) {
-            throw new BadRequestException("Categoria já existente.");
+            throw new IllegalArgumentException("Categoria já existente.");
         }
 
         Categoria cat = new Categoria();
