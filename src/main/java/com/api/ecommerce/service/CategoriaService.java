@@ -26,11 +26,13 @@ public class CategoriaService {
                 .collect(Collectors.toList());
     }
 
-//    public Categoria findById(Long id) {
-//        return categoriaRepository.findById(id)
-//                .orElseThrow(() -> new ObjectNotFoundException("Categoria não encontrada."));
-//    }
-//
+    public CategoriaDto findById(Long id) {
+        Categoria cat = categoriaRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Categoria não encontrada."));
+
+        return new CategoriaDto(cat);
+    }
+
 //    public CategoriaDto save(CategoriaDto categoriaDto) {
 //        if (categoriaRepository.existsByNome(categoriaDto.getNome())) {
 //            throw new IllegalArgumentException("Categoria já existente.");

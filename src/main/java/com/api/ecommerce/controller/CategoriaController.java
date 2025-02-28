@@ -22,12 +22,11 @@ public class CategoriaController {
         return ResponseEntity.ok(categoriaService.findAll());
     }
 
-//    @GetMapping("/{id}")
-//    public ResponseEntity<CategoriaDto> findById(@PathVariable Long id) {
-//        Categoria cat = categoriaService.findById(id);
-//        return ResponseEntity.ok().body(new CategoriaDto(cat));
-//    }
-//
+    @GetMapping("/{id}")
+    public ResponseEntity<CategoriaDto> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(categoriaService.findById(id));
+    }
+
 //    @PostMapping
 //    public ResponseEntity<CategoriaDto> save(@RequestBody CategoriaDto categoriaDto) {
 //        CategoriaDto catSalva = categoriaService.save(categoriaDto);
