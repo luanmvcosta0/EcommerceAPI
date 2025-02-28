@@ -1,5 +1,6 @@
 package com.api.ecommerce.models;
 
+import com.api.ecommerce.dtos.CategoriaDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
@@ -33,6 +34,11 @@ public class Categoria {
         this.descricao = descricao;
     }
 
+    public Categoria(CategoriaDto categoriaDto) {
+        this.id = categoriaDto.getId();
+        this.nome = categoriaDto.getNome();
+        this.descricao = categoriaDto.getDescricao();
+    }
 
 
     public Long getId() {

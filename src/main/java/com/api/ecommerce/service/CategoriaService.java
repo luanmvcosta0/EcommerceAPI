@@ -33,19 +33,22 @@ public class CategoriaService {
         return new CategoriaDto(cat);
     }
 
-//    public CategoriaDto save(CategoriaDto categoriaDto) {
-//        if (categoriaRepository.existsByNome(categoriaDto.getNome())) {
-//            throw new IllegalArgumentException("Categoria já existente.");
-//        }
-//
+    public CategoriaDto save(CategoriaDto categoriaDto) {
+        if (categoriaRepository.existsByNome(categoriaDto.getNome())) {
+            throw new IllegalArgumentException("Categoria já existente.");
+        }
+
+        Categoria catSalva = new Categoria(categoriaDto);
+        return new CategoriaDto(categoriaRepository.save(catSalva));
+
 //        Categoria cat = new Categoria();
 //        cat.setNome(categoriaDto.getNome());
 //        cat.setDescricao(categoriaDto.getDescricao());
 //
 //        cat = categoriaRepository.save(cat);
 //        return new CategoriaDto(cat);
-//    }
-//
+    }
+
 //    public CategoriaDto update(Long id, CategoriaDto categoriaDto) {
 //        Categoria cat = categoriaRepository.findById(id)
 //                .orElseThrow(() -> new ObjectNotFoundException("Categoria não encontrada."));

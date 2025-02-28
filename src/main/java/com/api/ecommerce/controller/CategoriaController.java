@@ -27,12 +27,11 @@ public class CategoriaController {
         return ResponseEntity.ok(categoriaService.findById(id));
     }
 
-//    @PostMapping
-//    public ResponseEntity<CategoriaDto> save(@RequestBody CategoriaDto categoriaDto) {
-//        CategoriaDto catSalva = categoriaService.save(categoriaDto);
-//        return ResponseEntity.ok().body(catSalva);
-//    }
-//
+    @PostMapping
+    public ResponseEntity<CategoriaDto> save(@RequestBody CategoriaDto categoriaDto) {
+        return ResponseEntity.ok(categoriaService.save(categoriaDto));
+    }
+
 //    @PutMapping("{id}")
 //    public ResponseEntity<CategoriaDto> update(@PathVariable Long id, @RequestBody CategoriaDto categoriaDto) {
 //        CategoriaDto catAtualiza = categoriaService.update(id, categoriaDto);
