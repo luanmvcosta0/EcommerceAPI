@@ -37,7 +37,7 @@ public class GlobalException {
         StandardError error = new StandardError(
                 LocalDateTime.now(),
                 HttpStatus.BAD_REQUEST.value(),
-                "Não é possível excluir esta categoria, pois há produtos associados.",
+                ex.getMessage(),
                 request.getRequestURI());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);

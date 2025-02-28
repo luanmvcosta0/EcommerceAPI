@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/categoria")
@@ -17,32 +18,32 @@ public class CategoriaController {
     private CategoriaService categoriaService;
 
     @GetMapping
-    public List<Categoria> findAll() {
-        return categoriaService.findAll();
+    public ResponseEntity<List<CategoriaDto>> findAll() {
+        return ResponseEntity.ok(categoriaService.findAll());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<CategoriaDto> findById(@PathVariable Long id) {
-        CategoriaDto categoriaDto = categoriaService.findById(id);
-        return ResponseEntity.ok(categoriaDto);
-    }
-
-    @PostMapping
-    public ResponseEntity<CategoriaDto> save(@RequestBody CategoriaDto categoriaDto) {
-        CategoriaDto catSalva = categoriaService.save(categoriaDto);
-        return ResponseEntity.ok().body(catSalva);
-    }
-
-    @PutMapping("{id}")
-    public ResponseEntity<CategoriaDto> update(@PathVariable Long id, @RequestBody CategoriaDto categoriaDto) {
-        CategoriaDto catAtualiza = categoriaService.update(id, categoriaDto);
-        return ResponseEntity.ok().body(catAtualiza);
-    }
-
-    @DeleteMapping("{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        categoriaService.delete(id);
-        return ResponseEntity.noContent().build();
-    }
+//    @GetMapping("/{id}")
+//    public ResponseEntity<CategoriaDto> findById(@PathVariable Long id) {
+//        Categoria cat = categoriaService.findById(id);
+//        return ResponseEntity.ok().body(new CategoriaDto(cat));
+//    }
+//
+//    @PostMapping
+//    public ResponseEntity<CategoriaDto> save(@RequestBody CategoriaDto categoriaDto) {
+//        CategoriaDto catSalva = categoriaService.save(categoriaDto);
+//        return ResponseEntity.ok().body(catSalva);
+//    }
+//
+//    @PutMapping("{id}")
+//    public ResponseEntity<CategoriaDto> update(@PathVariable Long id, @RequestBody CategoriaDto categoriaDto) {
+//        CategoriaDto catAtualiza = categoriaService.update(id, categoriaDto);
+//        return ResponseEntity.ok().body(catAtualiza);
+//    }
+//
+//    @DeleteMapping("{id}")
+//    public ResponseEntity<Void> delete(@PathVariable Long id) {
+//        categoriaService.delete(id);
+//        return ResponseEntity.noContent().build();
+//    }
 
 }
