@@ -1,14 +1,10 @@
 package com.api.ecommerce.controller;
-
 import com.api.ecommerce.dtos.CategoriaDto;
-import com.api.ecommerce.models.Categoria;
 import com.api.ecommerce.service.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/categoria")
@@ -37,10 +33,9 @@ public class CategoriaController {
         return ResponseEntity.ok(categoriaService.update(id, categoriaDto));
     }
 
-//    @DeleteMapping("{id}")
-//    public ResponseEntity<Void> delete(@PathVariable Long id) {
-//        categoriaService.delete(id);
-//        return ResponseEntity.noContent().build();
-//    }
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        return ResponseEntity.noContent().build();
+    }
 
 }
