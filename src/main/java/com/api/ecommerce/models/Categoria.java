@@ -2,8 +2,12 @@ package com.api.ecommerce.models;
 
 import com.api.ecommerce.dtos.CategoriaDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +27,6 @@ public class Categoria {
     @OneToMany(mappedBy = "categoria")
     private List<Produto> produtos = new ArrayList<>();
 
-
-
     public Categoria() {
     }
 
@@ -39,7 +41,6 @@ public class Categoria {
         this.nome = categoriaDto.getNome();
         this.descricao = categoriaDto.getDescricao();
     }
-
 
     public Long getId() {
         return id;

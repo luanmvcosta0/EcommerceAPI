@@ -8,8 +8,6 @@ public class CategoriaDto {
     private String nome;
     private String descricao;
 
-
-
     public CategoriaDto() {
     }
 
@@ -24,8 +22,6 @@ public class CategoriaDto {
         this.nome = categoria.getNome();
         this.descricao = categoria.getDescricao();
     }
-
-
 
     public Long getId() {
         return id;

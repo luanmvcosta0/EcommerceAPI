@@ -1,7 +1,6 @@
 package com.api.ecommerce.exceptions;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.time.LocalDateTime;
 
 public class StandardError {
@@ -12,8 +11,6 @@ public class StandardError {
     private String message;
     private String path;
 
-
-
     public StandardError() {
     }
 
@@ -23,8 +20,6 @@ public class StandardError {
         this.message = message;
         this.path = path;
     }
-
-
 
     public LocalDateTime getTimestamp() {
         return timestamp;
@@ -57,4 +52,5 @@ public class StandardError {
     public void setPath(String path) {
         this.path = path;
     }
+
 }
