@@ -1,11 +1,19 @@
 package com.api.ecommerce.dtos;
 
 import com.api.ecommerce.models.Categoria;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 public class CategoriaDto {
 
     private Long id;
+
+    @Size(min = 3, max = 20, message = "Mínimo de 3 caracteres e máximo de 20")
+    @NotBlank(message = "O campo NOME é requerido")
     private String nome;
+
+    @Size(min = 30, max = 60, message = "Mínimo de 30 caracteres e máximo de 60")
+    @NotBlank(message = "O campo DESCRIÇÃO é requerido")
     private String descricao;
 
     public CategoriaDto() {
