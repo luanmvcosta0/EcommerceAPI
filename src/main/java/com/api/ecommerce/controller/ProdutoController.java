@@ -34,4 +34,9 @@ public class ProdutoController {
         List<ProdutoDto> produtos = produtoService.findAllByCategoria(id);
         return ResponseEntity.ok(produtos);
     }
+
+    @GetMapping("{id}")
+    public ResponseEntity<ProdutoDto> findById(@PathVariable Long id) {
+
+    }
 }

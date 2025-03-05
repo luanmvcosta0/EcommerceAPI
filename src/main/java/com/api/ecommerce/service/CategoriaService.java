@@ -30,12 +30,12 @@ public class CategoriaService {
         return categoriaRepository.save(categoria);
     }
 
-    public Categoria update(Long id, Categoria categoria) {
+    public Categoria update(Long id, Categoria categoriaDto) {
         Categoria cat = categoriaRepository.findById(id)
                 .orElseThrow(() -> new ObjectNotFoundException("Categoria não encontrada."));
 
-        cat.setNome(categoria.getNome());
-        cat.setDescricao(categoria.getDescricao());
+        cat.setNome(categoriaDto.getNome());
+        cat.setDescricao(categoriaDto.getDescricao());
 
         return categoriaRepository.save(cat);
     }
