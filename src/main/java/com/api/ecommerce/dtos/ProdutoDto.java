@@ -1,6 +1,7 @@
 package com.api.ecommerce.dtos;
 
 import com.api.ecommerce.models.Categoria;
+import com.api.ecommerce.models.Produto;
 
 public class ProdutoDto {
 
@@ -21,6 +22,15 @@ public class ProdutoDto {
         this.preco = preco;
         this.quantidadeEstoque = quantidadeEstoque;
         this.categoria = categoria;
+    }
+
+    public ProdutoDto(Produto produto) {
+        this.id = produto.getId();
+        this.nome = produto.getNome();
+        this.descricao = produto.getDescricao();
+        this.preco = produto.getPreco();
+        this.quantidadeEstoque = produto.getQuantidadeEstoque();
+        this.categoria = produto.getCategoria();
     }
 
     public Long getId() {
