@@ -15,8 +15,8 @@ public class ValidationError extends StandardError {
         super(timestamp, status, message, path);
     }
 
-    public ValidationError(List<FieldMessage> erros) {
-        this.erros = erros;
+    public List<FieldMessage> getErro() {
+        return erros;
     }
 
     public void addErro(String fieldName, String message) {
