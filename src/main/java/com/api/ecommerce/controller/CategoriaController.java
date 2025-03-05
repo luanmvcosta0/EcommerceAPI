@@ -24,7 +24,7 @@ public class CategoriaController {
     @Autowired
     private CategoriaService categoriaService;
 
-    @GetMapping
+    @GetMapping("")
     public ResponseEntity<List<CategoriaDto>> findAll() {
         List<Categoria> categorias = categoriaService.findAll();
         List<CategoriaDto> categoriaDtos = categorias.stream()
@@ -39,7 +39,7 @@ public class CategoriaController {
         return ResponseEntity.ok(new CategoriaDto(categoria));
     }
 
-    @PostMapping
+    @PostMapping("")
     public ResponseEntity<CategoriaDto> save(@Valid @RequestBody CategoriaDto categoriaDto) {
         Categoria categoria = new Categoria(categoriaDto);
         Categoria savedCategoria = categoriaService.save(categoria);

@@ -19,7 +19,7 @@ public class ProdutoController {
     @Autowired
     private ProdutoService produtoService;
 
-    @GetMapping
+    @GetMapping("")
     public ResponseEntity<List<ProdutoDto>> findAll() {
         List<Produto> produtos = produtoService.findAll();
         List<ProdutoDto> produtosDto = produtos.stream()
@@ -29,10 +29,9 @@ public class ProdutoController {
         return ResponseEntity.ok(produtosDto);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ProdutoDto> findById(@PathVariable Long id) {
-        Produto produto = produtoService.findById(id);
-        return ResponseEntity.ok(new ProdutoDto(produto));
+    @GetMapping("/categoria/{id}")
+    public ResponseEntity<List<ProdutoDto>> findAllByCategoria(@PathVariable Long id) {
+        List<ProdutoDto> produtos = produtoService.findAllByCategoria(id);
+        return ResponseEntity.ok(produtos);
     }
-
 }

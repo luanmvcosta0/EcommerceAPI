@@ -1,11 +1,12 @@
 package com.api.ecommerce.service;
 
-import com.api.ecommerce.exceptions.ObjectNotFoundException;
+import com.api.ecommerce.dtos.ProdutoDto;
 import com.api.ecommerce.models.Produto;
 import com.api.ecommerce.repositories.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProdutoService {
@@ -20,9 +21,13 @@ public class ProdutoService {
         return produtoRepository.findAll();
     }
 
-    public Produto findById(Long id) {
-        return produtoRepository.findById(id)
-                .orElseThrow(() -> new ObjectNotFoundException("Produto não encontrado"));
-    }
+    public List<ProdutoDto> findAllByCategoria(Long idCategoria) {
+        categoriaService.findById(idCategoria);
 
+        List<Produto> produtos = produtoRepository.findByCategoriaId(idCategoria);
+
+        return produtos.stream()
+                .map(ProdutoDto::new)
+                .collect(Collectors.toList());
+    }
 }
