@@ -37,12 +37,12 @@ public class CategoriaController {
         return ResponseEntity.ok(categoriaService.save(categoriaDto));
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<CategoriaDto> update(@PathVariable Long id, @Valid @RequestBody CategoriaDto categoriaDto) {
         return ResponseEntity.ok(categoriaService.update(id, categoriaDto));
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         categoriaService.delete(id);
         return ResponseEntity.noContent().build();
