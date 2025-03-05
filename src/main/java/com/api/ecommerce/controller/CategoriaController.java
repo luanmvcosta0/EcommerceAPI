@@ -2,6 +2,7 @@ package com.api.ecommerce.controller;
 
 import com.api.ecommerce.dtos.CategoriaDto;
 import com.api.ecommerce.service.CategoriaService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,12 +33,12 @@ public class CategoriaController {
     }
 
     @PostMapping
-    public ResponseEntity<CategoriaDto> save(@RequestBody CategoriaDto categoriaDto) {
+    public ResponseEntity<CategoriaDto> save(@Valid @RequestBody CategoriaDto categoriaDto) {
         return ResponseEntity.ok(categoriaService.save(categoriaDto));
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<CategoriaDto> update(@PathVariable Long id, @RequestBody CategoriaDto categoriaDto) {
+    public ResponseEntity<CategoriaDto> update(@Valid @PathVariable Long id, @RequestBody CategoriaDto categoriaDto) {
         return ResponseEntity.ok(categoriaService.update(id, categoriaDto));
     }
 
