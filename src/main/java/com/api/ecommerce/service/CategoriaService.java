@@ -1,6 +1,5 @@
 package com.api.ecommerce.service;
 
-import com.api.ecommerce.dtos.CategoriaDto;
 import com.api.ecommerce.exceptions.ObjectNotFoundException;
 import com.api.ecommerce.models.Categoria;
 import com.api.ecommerce.repositories.CategoriaRepository;
@@ -8,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CategoriaService {
@@ -16,50 +14,35 @@ public class CategoriaService {
     @Autowired
     private CategoriaRepository categoriaRepository;
 
-    public List<CategoriaDto> findAll() {
-        return categoriaRepository.findAll()
-                .stream()
-                .map(CategoriaDto::new)
-                .collect(Collectors.toList());
+    public List<Categoria> findAll() {
+        return categoriaRepository.findAll();
     }
 
-    public CategoriaDto findById(Long id) {
-        Categoria cat = categoriaRepository.findById(id)
+    public Categoria findById(Long id) {
+        return categoriaRepository.findById(id)
                 .orElseThrow(() -> new ObjectNotFoundException("Categoria não encontrada."));
-
-        return new CategoriaDto(cat);
     }
 
-    public CategoriaDto save(CategoriaDto categoriaDto) {
-        if (categoriaRepository.existsByNome(categoriaDto.getNome())) {
+    public Categoria save(Categoria categoria) {
+        if (categoriaRepository.existsByNome(categoria.getNome())) {
             throw new IllegalArgumentException("Categoria já existente.");
         }
-
-        Categoria catSalva = new Categoria(categoriaDto);
-        return new CategoriaDto(categoriaRepository.save(catSalva));
-
-//        Categoria cat = new Categoria();
-//        cat.setNome(categoriaDto.getNome());
-//        cat.setDescricao(categoriaDto.getDescricao());
-//
-//        cat = categoriaRepository.save(cat);
-//        return new CategoriaDto(cat);
+        return categoriaRepository.save(categoria);
     }
 
-    public CategoriaDto update(Long id, CategoriaDto categoriaDto) {
+    public Categoria update(Long id, Categoria categoria) {
         Categoria cat = categoriaRepository.findById(id)
                 .orElseThrow(() -> new ObjectNotFoundException("Categoria não encontrada."));
 
-                cat.setNome(categoriaDto.getNome());
-                cat.setDescricao(categoriaDto.getDescricao());
+        cat.setNome(categoria.getNome());
+        cat.setDescricao(categoria.getDescricao());
 
-                cat = categoriaRepository.save(cat);
-                return new CategoriaDto(cat);
+        return categoriaRepository.save(cat);
     }
 
     public void delete(Long id) {
         Categoria cat = categoriaRepository.findById(id)
-                        .orElseThrow(() -> new ObjectNotFoundException("Categoria não encontrada."));
+                .orElseThrow(() -> new ObjectNotFoundException("Categoria não encontrada."));
 
         if (!cat.getProdutos().isEmpty()) {
             throw new DataIntegrityViolationException("Não é possível excluir esta categoria, pois há produtos associados.");

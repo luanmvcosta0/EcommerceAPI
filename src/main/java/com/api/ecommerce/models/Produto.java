@@ -1,5 +1,6 @@
 package com.api.ecommerce.models;
 
+import com.api.ecommerce.dtos.ProdutoDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -40,6 +41,15 @@ public class Produto {
         this.preco = preco;
         this.quantidadeEstoque = quantidadeEstoque;
         this.categoria = categoria;
+    }
+
+    public Produto(ProdutoDto produtoDto) {
+        this.id = produtoDto.getId();
+        this.nome = produtoDto.getNome();
+        this.descricao = produtoDto.getDescricao();
+        this.preco = produtoDto.getPreco();
+        this.quantidadeEstoque = produtoDto.getQuantidadeEstoque();
+        this.categoria = produtoDto.getCategoria();
     }
 
     public Long getId() {

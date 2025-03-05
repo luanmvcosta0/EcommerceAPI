@@ -1,6 +1,7 @@
 package com.api.ecommerce.controller;
 
 import com.api.ecommerce.dtos.CategoriaDto;
+import com.api.ecommerce.models.Categoria;
 import com.api.ecommerce.service.CategoriaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/categoria")
@@ -24,22 +26,31 @@ public class CategoriaController {
 
     @GetMapping
     public ResponseEntity<List<CategoriaDto>> findAll() {
-        return ResponseEntity.ok(categoriaService.findAll());
+        List<Categoria> categorias = categoriaService.findAll();
+        List<CategoriaDto> categoriaDtos = categorias.stream()
+                .map(CategoriaDto::new)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(categoriaDtos);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<CategoriaDto> findById(@PathVariable Long id) {
-        return ResponseEntity.ok(categoriaService.findById(id));
+        Categoria categoria = categoriaService.findById(id);
+        return ResponseEntity.ok(new CategoriaDto(categoria));
     }
 
     @PostMapping
     public ResponseEntity<CategoriaDto> save(@Valid @RequestBody CategoriaDto categoriaDto) {
-        return ResponseEntity.ok(categoriaService.save(categoriaDto));
+        Categoria categoria = new Categoria(categoriaDto);
+        Categoria savedCategoria = categoriaService.save(categoria);
+        return ResponseEntity.ok(new CategoriaDto(savedCategoria));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<CategoriaDto> update(@PathVariable Long id, @Valid @RequestBody CategoriaDto categoriaDto) {
-        return ResponseEntity.ok(categoriaService.update(id, categoriaDto));
+        Categoria categoria = new Categoria(categoriaDto);
+        Categoria updatedCategoria = categoriaService.update(id, categoria);
+        return ResponseEntity.ok(new CategoriaDto(updatedCategoria));
     }
 
     @DeleteMapping("/{id}")
