@@ -2,6 +2,7 @@ package com.api.ecommerce.service;
 
 import com.api.ecommerce.dtos.ProdutoDto;
 import com.api.ecommerce.exceptions.ObjectNotFoundException;
+import com.api.ecommerce.models.Categoria;
 import com.api.ecommerce.models.Produto;
 import com.api.ecommerce.repositories.CategoriaRepository;
 import com.api.ecommerce.repositories.ProdutoRepository;
@@ -36,5 +37,19 @@ public class ProdutoService {
     public Produto findById(Long id) {
         return produtoRepository.findById(id)
                 .orElseThrow(() -> new ObjectNotFoundException("Produto não encontrado."));
+    }
+
+    public Produto save(ProdutoDto produtoDto) {
+        Categoria cat = categoriaRepository.findById(produtoDto.getCategoriaId())
+                .orElseThrow(() -> new ObjectNotFoundException("Categoria não encontrada"));
+
+        Produto produto = new Produto();
+        produto.setNome(produtoDto.getNome());
+        produto.setDescricao(produtoDto.getDescricao());
+        produto.setPreco(produtoDto.getPreco());
+        produto.setQuantidadeEstoque(produtoDto.getQuantidadeEstoque());
+        produto.setCategoria(cat);
+
+        return produtoRepository.save(produto);
     }
 }

@@ -10,18 +10,19 @@ public class ProdutoDto {
     private String descricao;
     private Double preco;
     private Integer quantidadeEstoque;
+    private Long categoriaId;
     private Categoria categoria;
 
     public ProdutoDto() {
     }
 
-    public ProdutoDto(Long id, String nome, String descricao, Double preco, Integer quantidadeEstoque, Categoria categoria) {
+    public ProdutoDto(Long id, String nome, String descricao, Double preco, Integer quantidadeEstoque, Long categoriaId) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
         this.quantidadeEstoque = quantidadeEstoque;
-        this.categoria = categoria;
+        this.categoriaId = categoriaId;
     }
 
     public ProdutoDto(Produto produto) {
@@ -30,7 +31,7 @@ public class ProdutoDto {
         this.descricao = produto.getDescricao();
         this.preco = produto.getPreco();
         this.quantidadeEstoque = produto.getQuantidadeEstoque();
-        this.categoria = produto.getCategoria();
+        this.categoriaId = produto.getCategoria().getId();
     }
 
     public Long getId() {
@@ -73,11 +74,11 @@ public class ProdutoDto {
         this.quantidadeEstoque = quantidadeEstoque;
     }
 
-    public Categoria getCategoria() {
-        return categoria;
+    public Long getCategoriaId() {
+        return categoriaId;
     }
 
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
+    public void setCategoriaId(Long categoriaId) {
+        this.categoriaId = categoriaId;
     }
 }

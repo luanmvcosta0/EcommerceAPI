@@ -3,10 +3,13 @@ package com.api.ecommerce.controller;
 import com.api.ecommerce.dtos.ProdutoDto;
 import com.api.ecommerce.models.Produto;
 import com.api.ecommerce.service.ProdutoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
@@ -39,5 +42,11 @@ public class ProdutoController {
     public ResponseEntity<ProdutoDto> findById(@PathVariable Long id) {
         Produto produto = produtoService.findById(id);
         return ResponseEntity.ok(new ProdutoDto(produto));
+    }
+
+    @PostMapping("")
+    public ResponseEntity<ProdutoDto> save(@Valid @RequestBody ProdutoDto produtoDto){
+        Produto produtoSalvo = produtoService.save(produtoDto);
+        return ResponseEntity.ok(new ProdutoDto(produtoSalvo));
     }
 }

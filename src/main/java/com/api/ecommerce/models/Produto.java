@@ -49,7 +49,6 @@ public class Produto {
         this.descricao = produtoDto.getDescricao();
         this.preco = produtoDto.getPreco();
         this.quantidadeEstoque = produtoDto.getQuantidadeEstoque();
-        this.categoria = produtoDto.getCategoria();
     }
 
     public Long getId() {
