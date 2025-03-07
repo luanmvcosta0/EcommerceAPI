@@ -52,4 +52,21 @@ public class ProdutoService {
 
         return produtoRepository.save(produto);
     }
+
+    public Produto update(Long id, ProdutoDto produtoDto) {
+        Produto produtoExistente = produtoRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Produto não encontrado"));
+
+        Categoria cat = categoriaRepository.findById(produtoDto.getCategoriaId())
+                .orElseThrow(() -> new ObjectNotFoundException("Categoria não encontrada"));
+
+        Produto produtoAtualizado = new Produto();
+        produtoAtualizado.setNome(produtoDto.getNome());
+        produtoAtualizado.setDescricao(produtoDto.getDescricao());
+        produtoAtualizado.setPreco(produtoDto.getPreco());
+        produtoAtualizado.setQuantidadeEstoque(produtoDto.getQuantidadeEstoque());
+        produtoAtualizado.setQuantidadeEstoque(produtoDto.getQuantidadeEstoque());
+
+        return produtoRepository.save(produtoAtualizado);
+    }
 }
