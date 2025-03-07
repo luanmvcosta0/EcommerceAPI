@@ -69,4 +69,11 @@ public class ProdutoService {
 
         return produtoRepository.save(produtoAtualizado);
     }
+
+    public void delete(Long id) {
+        Produto produto = produtoRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Produto não encontrado"));
+
+        produtoRepository.delete(produto);
+    }
 }
