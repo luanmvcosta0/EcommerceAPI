@@ -39,7 +39,7 @@ class CategoriaServiceTest {
     }
 
     @Test
-    void Dado_uma_lista_Quando_buscar_todas_Entao_deve_retornar_uma_lista_de_categorias() {
+    void FindAll_Quando_buscar_todas_Entao_deve_retornar_uma_lista_de_categorias() {
         when(categoriaRepository.findAll()).thenReturn(Arrays.asList(categoria));
 
         List<Categoria> categorias = categoriaService.findAll();
@@ -51,7 +51,7 @@ class CategoriaServiceTest {
     }
 
     @Test
-    void Dado_id_existente_Quando_buscar_por_id_Entao_deve_retornar_a_categoria() {
+    void FindById_Quando_buscar_por_id_Entao_deve_retornar_a_categoria() {
         when(categoriaRepository.findById(1L)).thenReturn(Optional.of(categoria));
 
         Categoria categoriaEncontrada = categoriaService.findById(1L);
@@ -62,7 +62,7 @@ class CategoriaServiceTest {
     }
 
     @Test
-    void Dado_id_inexistente_Quando_buscar_por_id_Entao_deve_retornar_exception() {
+    void FindByIdEx_Quando_buscar_por_id_Entao_deve_retornar_exception() {
         when(categoriaRepository.findById(2L)).thenReturn(Optional.empty());
 
         assertThrows(ObjectNotFoundException.class, () -> categoriaService.findById(2L));
@@ -70,7 +70,7 @@ class CategoriaServiceTest {
     }
 
     @Test
-    void Dado_uma_categoria_valida_Quando_salvar_Entao_deve_retornar_categoria_salva() {
+    void Save_Quando_salvar_Entao_deve_retornar_categoria_salva() {
         when(categoriaRepository.existsByNome(categoria.getNome())).thenReturn(false);
         when(categoriaRepository.save(any(Categoria.class))).thenReturn(categoria);
 
@@ -82,7 +82,7 @@ class CategoriaServiceTest {
     }
 
     @Test
-    void Dado_categoria_ja_existente_Quando_salvar_Entao_deve_retornar_exception() {
+    void SaveEx_Quando_salvar_Entao_deve_retornar_exception() {
         when(categoriaRepository.existsByNome(categoria.getNome())).thenReturn(true);
 
         assertThrows(IllegalArgumentException.class, () -> categoriaService.save(categoria));
@@ -90,7 +90,7 @@ class CategoriaServiceTest {
     }
 
     @Test
-    void Dado_id_existente_Quando_atualizar_Entao_deve_retornar_categoria_atualizada() {
+    void Update_Quando_atualizar_Entao_deve_retornar_categoria_atualizada() {
         Categoria categoriaAlteracao = new Categoria();
         categoriaAlteracao.setNome("Alimentos");
         categoriaAlteracao.setDescricao("Alimentos no geral");
@@ -107,7 +107,7 @@ class CategoriaServiceTest {
     }
 
     @Test
-    void Dado_id_inexistente_Quando_atualizar_Entao_deve_lancar_exeption() {
+    void UpdateEx_Quando_atualizar_Entao_deve_lancar_exeption() {
         when(categoriaRepository.findById(2L)).thenReturn(Optional.empty());
 
         assertThrows(ObjectNotFoundException.class, () -> categoriaService.update(2L, categoria));
@@ -116,7 +116,7 @@ class CategoriaServiceTest {
     }
 
     @Test
-    void Dado_id_existente_Quando_excluir_Deve_retornar_rmover_categoria() {
+    void Delete_Quando_excluir_Deve_retornar_rmover_categoria() {
         when(categoriaRepository.findById(1L)).thenReturn(Optional.of(categoria));
 
         categoriaService.delete(1L);
@@ -126,7 +126,7 @@ class CategoriaServiceTest {
     }
 
     @Test
-    void Dado_categoria_com_produtos_Quando_excluir_Entao_deve_lancar_exception() {
+    void DeleteEx_Quando_excluir_Entao_deve_lancar_exception() {
         Categoria categoriaComProdutos = new Categoria();
         categoriaComProdutos.setId(1L);
         categoriaComProdutos.setNome("Eletrônicos");

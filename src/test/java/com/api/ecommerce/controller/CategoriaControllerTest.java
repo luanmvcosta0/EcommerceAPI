@@ -44,7 +44,7 @@ class CategoriaControllerTest {
     }
 
     @Test
-    void Dado_categorias_existentes_Quando_buscar_todas_Entao_deve_retornar_uma_lista_de_categoriaDto() {
+    void FindAll_Quando_buscar_todas_Entao_deve_retornar_uma_lista_de_categoriaDto() {
         when(categoriaService.findAll()).thenReturn(Arrays.asList(categoria));
 
         ResponseEntity<List<CategoriaDto>> listaCategoria = categoriaController.findAll();
@@ -58,7 +58,7 @@ class CategoriaControllerTest {
     }
 
     @Test
-    void Dado_id_existente_Quando_buscar_por_id_Entao_deve_retornar_a_categoria() {
+    void FindById_Quando_buscar_por_id_Entao_deve_retornar_a_categoria() {
         when(categoriaService.findById(1L)).thenReturn(categoria);
 
         ResponseEntity<CategoriaDto> response = categoriaController.findById(1L);
@@ -71,7 +71,7 @@ class CategoriaControllerTest {
     }
 
     @Test
-    void save_Quando_salvar_Entao_deve_retornar_uma_categoria_salva() {
+    void Save_Quando_salvar_Entao_deve_retornar_uma_categoria_salva() {
         when(categoriaService.save(any(Categoria.class))).thenReturn(categoria);
 
         ResponseEntity<CategoriaDto> response = categoriaController.save(categoriaDto);
@@ -84,7 +84,7 @@ class CategoriaControllerTest {
     }
 
     @Test
-    void update() {
+    void Update_Quando_encontrar_uma_categoria_Entao_deve_retornar_uma_categoria_atualizada() {
         when(categoriaService.update(eq(1L), any(Categoria.class))).thenReturn(categoria);
 
         ResponseEntity<CategoriaDto> response = categoriaController.update(1L, categoriaDto);
@@ -97,7 +97,7 @@ class CategoriaControllerTest {
     }
 
     @Test
-    void delete() {
+    void Delete_Quando_encontrar_uma_categoria_Entao_deve_deletar_categoria() {
         doNothing().when(categoriaService).delete(1L);
 
         ResponseEntity<Void> response = categoriaController.delete(1L);
