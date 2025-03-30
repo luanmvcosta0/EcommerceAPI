@@ -58,7 +58,16 @@ class CategoriaControllerTest {
     }
 
     @Test
-    void findById() {
+    void Dado_id_existente_Quando_buscar_por_id_Entao_deve_retornar_a_categoria() {
+        when(categoriaService.findById(1L)).thenReturn(categoria);
+
+        ResponseEntity<CategoriaDto> response = categoriaController.findById(1L);
+
+        assertNotNull(response);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals("Eletrônicos", response.getBody().getNome());
+
+        verify(categoriaService, times(1)).findById(1L);
     }
 
     @Test
