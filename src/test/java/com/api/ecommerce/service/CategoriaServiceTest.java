@@ -62,10 +62,10 @@ class CategoriaServiceTest {
     void Dado_id_existente_Quando_buscar_por_id_Entao_deve_retornar_a_categoria() {
         when(categoriaRepository.findById(1L)).thenReturn(Optional.of(categoria));
 
-        Categoria foundCategoria = categoriaService.findById(1L);
+        Categoria categoriaEncontrada = categoriaService.findById(1L);
 
-        assertNotNull(foundCategoria);
-        assertEquals(1L, foundCategoria.getId());
+        assertNotNull(categoriaEncontrada);
+        assertEquals(1L, categoriaEncontrada.getId());
         verify(categoriaRepository, times(1)).findById(1L);
     }
 
@@ -79,10 +79,22 @@ class CategoriaServiceTest {
 
     @Test
     void Dado_uma_categoria_valida_Quando_salvar_Entao_deve_retornar_categoria_salva() {
+        when(categoriaRepository.existsByNome(categoria.getNome())).thenReturn(false);
+        when(categoriaRepository.save(any(Categoria.class))).thenReturn(categoria);
+
+        Categoria categoriaSalva = categoriaService.save(categoria);
+
+        assertNotNull(categoriaSalva);
+        assertEquals(categoriaSalva, categoriaSalva);
+        verify(categoriaRepository, times(1)).save(categoria);
     }
 
     @Test
     void Dado_categoria_ja_existente_Quando_salvar_Entao_deve_retornar_exception() {
+        when(categoriaRepository.existsByNome(categoria.getNome())).thenReturn(true);
+
+        assertThrows(IllegalArgumentException.class, () -> categoriaService.save(categoria));
+        verify(categoriaRepository, never()).save(any(Categoria.class));
     }
 
     @Test
