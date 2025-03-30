@@ -98,5 +98,13 @@ class CategoriaControllerTest {
 
     @Test
     void delete() {
+        doNothing().when(categoriaService).delete(1L);
+
+        ResponseEntity<Void> response = categoriaController.delete(1L);
+
+        assertNotNull(response);
+        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
+
+        verify(categoriaService, times(1)).delete(1L);
     }
 }
