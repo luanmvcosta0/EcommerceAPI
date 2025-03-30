@@ -85,6 +85,15 @@ class CategoriaControllerTest {
 
     @Test
     void update() {
+        when(categoriaService.update(eq(1L), any(Categoria.class))).thenReturn(categoria);
+
+        ResponseEntity<CategoriaDto> response = categoriaController.update(1L, categoriaDto);
+
+        assertNotNull(response);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals("Eletrônicos", response.getBody().getNome());
+
+        verify(categoriaService, times(1)).update(eq(1L), any(Categoria.class));
     }
 
     @Test
