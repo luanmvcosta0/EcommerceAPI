@@ -1,6 +1,7 @@
 package com.api.ecommerce.service;
 
 import com.api.ecommerce.models.Categoria;
+import com.api.ecommerce.models.Produto;
 import com.api.ecommerce.repositories.CategoriaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,15 +10,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import com.api.ecommerce.exceptions.ObjectNotFoundException;
-import com.api.ecommerce.models.Categoria;
-import com.api.ecommerce.repositories.CategoriaRepository;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.Arrays;
@@ -125,9 +117,37 @@ class CategoriaServiceTest {
 
     @Test
     void Dado_id_existente_Quando_excluir_Deve_retornar_rmover_categoria() {
+        when(categoriaRepository.findById(1L)).thenReturn(Optional.of(categoria));
+
+        categoriaService.delete(1L);
+
+        verify(categoriaRepository, times(1)).findById(1L);
+        verify(categoriaRepository, times(1)).deleteById(1L);
     }
 
     @Test
     void Dado_categoria_com_produtos_Quando_excluir_Entao_deve_lancar_exception() {
+        Categoria categoriaComProdutos = new Categoria();
+        categoriaComProdutos.setId(1L);
+        categoriaComProdutos.setNome("Eletrônicos");
+
+        Produto produto = new Produto();
+        produto.setId(1L);
+        produto.setNome("Smartphone");
+
+        categoriaComProdutos.setProdutos(List.of(produto));
+
+        when(categoriaRepository.findById(1L)).thenReturn(Optional.of(categoriaComProdutos));
+
+        DataIntegrityViolationException exception = assertThrows(
+                DataIntegrityViolationException.class,
+                () -> categoriaService.delete(1L)
+        );
+
+        assertEquals("Não é possível excluir esta categoria, pois há produtos associados.", exception.getMessage());
+
+        verify(categoriaRepository, times(1)).findById(1L);
+
+        verify(categoriaRepository, never()).deleteById(1L);
     }
 }
