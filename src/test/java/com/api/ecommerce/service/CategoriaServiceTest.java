@@ -99,10 +99,28 @@ class CategoriaServiceTest {
 
     @Test
     void Dado_id_existente_Quando_atualizar_Entao_deve_retornar_categoria_atualizada() {
+        Categoria categoriaAlteracao = new Categoria();
+        categoriaAlteracao.setNome("Alimentos");
+        categoriaAlteracao.setDescricao("Alimentos no geral");
+
+        when(categoriaRepository.findById(1L)).thenReturn(Optional.of(categoria));
+        when(categoriaRepository.save(any(Categoria.class))).thenReturn(categoriaAlteracao);
+
+        Categoria categoriaAtualizada = categoriaService.update(1L, categoriaAlteracao);
+
+        assertNotNull(categoriaAtualizada);
+        assertEquals(categoriaAtualizada, categoriaAtualizada);
+        verify(categoriaRepository, times(1)).findById(1L);
+        verify(categoriaRepository, times(1)).save(any(Categoria.class));
     }
 
     @Test
     void Dado_id_inexistente_Quando_atualizar_Entao_deve_lancar_exeption() {
+        when(categoriaRepository.findById(2L)).thenReturn(Optional.empty());
+
+        assertThrows(ObjectNotFoundException.class, () -> categoriaService.update(2L, categoria));
+        verify(categoriaRepository, times(1)).findById(2L);
+        verify(categoriaRepository, never()).save(any(Categoria.class));
     }
 
     @Test
