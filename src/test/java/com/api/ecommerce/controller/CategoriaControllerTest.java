@@ -71,7 +71,16 @@ class CategoriaControllerTest {
     }
 
     @Test
-    void save() {
+    void save_Quando_salvar_Entao_deve_retornar_uma_categoria_salva() {
+        when(categoriaService.save(any(Categoria.class))).thenReturn(categoria);
+
+        ResponseEntity<CategoriaDto> response = categoriaController.save(categoriaDto);
+
+        assertNotNull(response);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals("Eletrônicos", response.getBody().getNome());
+
+        verify(categoriaService, times(1)).save(any(Categoria.class));
     }
 
     @Test
