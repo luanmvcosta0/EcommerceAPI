@@ -60,12 +60,21 @@ class CategoriaServiceTest {
 
     @Test
     void Dado_id_existente_Quando_buscar_por_id_Entao_deve_retornar_a_categoria() {
+        when(categoriaRepository.findById(1L)).thenReturn(Optional.of(categoria));
 
+        Categoria foundCategoria = categoriaService.findById(1L);
+
+        assertNotNull(foundCategoria);
+        assertEquals(1L, foundCategoria.getId());
+        verify(categoriaRepository, times(1)).findById(1L);
     }
 
     @Test
     void Dado_id_inexistente_Quando_buscar_por_id_Entao_deve_retornar_exception() {
+        when(categoriaRepository.findById(2L)).thenReturn(Optional.empty());
 
+        assertThrows(ObjectNotFoundException.class, () -> categoriaService.findById(2L));
+        verify(categoriaRepository, times(1)).findById(2L);
     }
 
     @Test
